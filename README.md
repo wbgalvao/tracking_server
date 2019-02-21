@@ -1,4 +1,7 @@
-# Tracking Server Demonstration
+Tracking Server Demonstration
+====
+
+[![Build Status](https://travis-ci.org/wbgalvao/tracking_server.svg?branch=master)](https://travis-ci.org/wbgalvao/tracking_server)
 
 Demonstration project for tracking users impressions when browsing through the web.
 
@@ -31,9 +34,13 @@ Both the application and database of this project are shipped as containers to K
 
 There is a demonstration version of this project running in a cluster provided by [DigitalOcean](https://www.digitalocean.com/) in the address `178.128.130.123:8080`. To test it you can run the following commands:
 
-`curl 178.128.130.123:8080/`
+```bash
+curl 178.128.130.123:8080/
+```
 
-`curl -X POST 178.128.130.123:8080/track -d '{"username": "John Doe", "target": "https://www.google.com/", "description": "VIEW"}'`
+```bash
+curl -X POST 178.128.130.123:8080/track -d '{"username": "John Doe", "target": "https://www.google.com/", "description": "VIEW"}'
+```
 
 ### Handling High Throughput of Tracking Events
 
@@ -43,11 +50,15 @@ Since we are dealing with the "whole" web, we can expect a high throughput of re
 
 You can build and run the application locally using [docker-compose](https://docs.docker.com/compose/). Install it and run the following command on the project's root directory:
 
-`docker-compose up --build`
+```bash
+docker-compose up --build
+```
 
 Even though the output is kind of strange, by the end there should be an local app listening to the `8080` port of your machine and a Cassandra standalone cluster listening to the port `9042` of your machine. At this point, if you want, you can run the unit and integration tests present in the project:
 
-`go test -v ./...`
+```bash
+go test -v ./...
+```
 
 
 ## Possible Improvements
