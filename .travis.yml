@@ -1,0 +1,14 @@
+language: go
+
+go:
+  - "1.10.x"
+
+services:
+  - docker
+
+before_install:
+  - docker-compose up -d
+  - sleep 120
+
+script:
+  - go test -v ./...
