@@ -1,0 +1,29 @@
+version: '3.1'
+
+services:
+
+  cassandra:
+    image: cassandra:3
+    network_mode: host
+    environment:
+      - KEYSPACE=tracker
+      - TABLE=event
+    volumes:
+      - "./scripts/cassandra-init.sh:/cassandra-init.sh"
+    command: ["sh", "/cassandra-init.sh"]
+    healthcheck:
+      test: ["CMD-SHELL", "[ $$(nodetool statusgossip) = running ]"]
+
+  app:
+    build: "."
+    network_mode: host
+    environment:
+      - CASSANDRA_HOST=localhost
+      - CASSANDRA_KEYSPACE=tracker
+      - CASSANDRA_EVENT_TABLE=event
+    volumes:
+      - ".:/go/src/github.com/wbgalvao/tracking_server"
+    working_dir: "/go/src/github.com/wbgalvao/tracking_server"
+    command: ["./scripts/wait-for-it.sh", "localhost:9042", "-t", "60", "--", "go", "run", "main.go"]
+    depends_on:
+      - cassandra

@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tracking-server
+  labels:
+    app: tracking-server
+spec:
+  selector:
+    matchLabels:
+      app: tracking-server
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: tracking-server
+    spec:
+      containers:
+        - name: tracking-server
+          image: wildergalvao/tracking_server:latest
+          env:
+          - name: CASSANDRA_HOST
+            value: "10.244.1.231"
+          - name: CASSANDRA_KEYSPACE
+            value: "tracker"
+          - name: CASSANDRA_EVENT_TABLE
+            value: "event"
+          ports:
+            - name: tracking-server
+              containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tracking-server
+spec:
+  type: LoadBalancer
+  selector:
+    app: tracking-server
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 8080
+      protocol: TCP
