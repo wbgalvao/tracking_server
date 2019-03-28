@@ -32,16 +32,6 @@ There are two valid values for the `description` field: _CLICK_ and _VIEW_. Any 
 
 Both the application and database of this project are shipped as containers to Kubernetes clusters. One can recreate this infrastructure by using the `.yaml` files present in the `k8s` directory. The deploy creates a `StorageClass`, a `PersistentVolumeClaim`, and a `StatefulSet` with a headless `Service` for the database as well as a `Deployment` and `LoadBalancer` for the API.
 
-There is a demonstration version of this project running in a cluster provided by [DigitalOcean](https://www.digitalocean.com/) in the address `178.128.130.123:8080`. To test it you can run the following commands:
-
-```bash
-curl 178.128.130.123:8080/
-```
-
-```bash
-curl -X POST 178.128.130.123:8080/track -d '{"username": "John Doe", "target": "https://www.google.com/", "description": "VIEW"}'
-```
-
 ### Handling High Throughput of Tracking Events
 
 Since we are dealing with the "whole" web, we can expect a high throughput of requests in our API. In the provided backend, there is a load balancer that can help us with that. In case the pods behind the load balancer aren't able to handle the incoming traffic, we can easily scale our application by increasing the `replicas` number of our Cassandra `StatefulSet` and of our `Deployment`.
