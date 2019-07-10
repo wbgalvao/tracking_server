@@ -1,7 +1,7 @@
 Tracking Server Demonstration
 ====
 
-[![Build Status](https://travis-ci.org/wbgalvao/tracking_server.svg?branch=master)](https://travis-ci.org/wbgalvao/tracking_server)
+[![Build Status](https://travis-ci.org/wbgalvao/tracking_server.svg?branch=master)](https://travis-ci.org/wbgalvao/tracking_server) [![Go Report Card](https://goreportcard.com/badge/github.com/wbgalvao/tracking_server)](https://goreportcard.com/report/github.com/wbgalvao/tracking_server)
 
 Demonstration project for tracking users impressions when browsing through the web.
 
